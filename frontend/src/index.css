@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: theme('colors.paper');
+}
+
+::selection {
+  background: theme('colors.accent');
+  color: white;
+}
+
+@layer components {
+  .input {
+    @apply w-full bg-ink border border-line rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+}
