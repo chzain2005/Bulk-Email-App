@@ -1,4 +1,4 @@
-# Dispatch — Bulk Email App (skeleton)
+# Dispatch — Bulk Email App 
 
 React + Tailwind frontend, Node/Express backend, Supabase (auth + database +
 storage + realtime). This is a working skeleton: auth, campaign create,
