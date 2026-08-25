@@ -14,6 +14,7 @@ const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:5173";
 app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 
+app.get("/", (req, res) => res.json({ ok: true, service: "bulk-email-backend" }));
 app.get("/api/health", (req, res) => res.json({ ok: true }));
 
 app.use("/api/campaigns", campaignsRoutes);
