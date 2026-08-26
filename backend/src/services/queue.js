@@ -93,7 +93,7 @@ export async function runCampaign(campaignId) {
     try {
       const subject = fillTemplate(campaign.subject, recipient);
       const filled = fillTemplate(campaign.message_template, recipient);
-      const html = `<div style="white-space: pre-line; font-family: sans-serif; font-size: 14px; line-height: 1.6;">${filled}</div>`;
+      const html = `<div style="font-family: sans-serif; font-size: 14px; line-height: 1.6;">${filled}</div>`;
 
       await sendEmail(transporter, {
         fromName: profile.from_name || profile.full_name || "Sender",

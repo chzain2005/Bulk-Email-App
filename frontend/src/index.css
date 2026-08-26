@@ -1,18 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 body {
-  color: theme('colors.paper');
+  color: theme("colors.paper");
 }
 
 ::selection {
-  background: theme('colors.accent');
+  background: theme("colors.accent");
   color: white;
 }
 
 @layer components {
   .input {
-    @apply w-full bg-ink border border-line rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent;
+    @apply w-full bg-ink border border-line rounded-md px-3 py-2 text-sm;
   }
+  .input:focus {
+    @apply outline-none ring-2 ring-accent;
+  }
+}
+
+/* Quill rich text editor — dark theme overrides */
+
+.quill-dark .ql-toolbar {
+  background: theme("colors.surface");
+  border-color: theme("colors.line");
+  border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.quill-dark .ql-container {
+  background: theme("colors.ink");
+  border-color: theme("colors.line");
+  border-radius: 0 0 0.375rem 0.375rem;
+  color: theme("colors.paper");
+  font-size: 0.875rem;
+  min-height: 220px;
+}
+
+.quill-dark .ql-editor {
+  min-height: 220px;
+}
+
+.quill-dark .ql-stroke {
+  stroke: theme("colors.muted");
+}
+
+.quill-dark .ql-fill {
+  fill: theme("colors.muted");
+}
+
+.quill-dark .ql-picker {
+  color: theme("colors.muted");
+}
+
+.quill-dark .ql-picker-options {
+  background: theme("colors.surface");
+  border-color: theme("colors.line");
+}
+
+.quill-dark .ql-active .ql-stroke {
+  stroke: theme("colors.accent");
+}
+
+.quill-dark .ql-active .ql-fill {
+  fill: theme("colors.accent");
+}
+
+.quill-dark .ql-editor.ql-blank::before {
+  color: theme("colors.muted");
+  font-style: normal;
 }
