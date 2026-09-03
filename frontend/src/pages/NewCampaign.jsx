@@ -25,7 +25,31 @@ export default function NewCampaign() {
   const [attachments, setAttachments] = useState([]);
   const [status, setStatus] = useState("");
   const [importSummary, setImportSummary] = useState(null);
+  const [aiPrompt, setAiPrompt] = useState("");
+  const [generating, setGenerating] = useState(false);
   const navigate = useNavigate();
+
+  const handleGenerate = async () => {
+    if (!aiPrompt.trim()) return;
+    setGenerating(true);
+    const token = await getAccessToken();
+    const res = await fetch("/api/generate-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ prompt: aiPrompt }),
+    });
+    setGenerating(false);
+    if (res.ok) {
+      const data = await res.json();
+      setSubject(data.subject);
+      setMessage(data.bodyHtml);
+    } else {
+      alert("AI generation failed. Try again.");
+    }
+  };
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -98,7 +122,27 @@ export default function NewCampaign() {
               placeholder="August product update"
             />
           </div>
-
+          <div className="border border-line rounded-lg p-4 bg-surface space-y-2">
+            <label className="block text-sm text-muted">
+              ✨ Generate with AI (optional)
+            </label>
+            <div className="flex gap-2">
+              <input
+                value={aiPrompt}
+                onChange={(e) => setAiPrompt(e.target.value)}
+                className="input"
+                placeholder="e.g. friendly email announcing our new product launch"
+              />
+              <button
+                type="button"
+                onClick={handleGenerate}
+                disabled={generating}
+                className="bg-accent hover:bg-accent/90 disabled:opacity-50 text-white text-sm font-medium rounded-md px-4 whitespace-nowrap"
+              >
+                {generating ? "Writing…" : "Generate"}
+              </button>
+            </div>
+          </div>
           <div>
             <label className="block text-sm text-muted mb-1">Subject</label>
             <input
